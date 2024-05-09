@@ -522,7 +522,10 @@ class Update extends Operation
                     $templates = $this->modx->getCollection(modTemplate::class, ['templatename:IN' => $element->templates]);
                     if ($templates) {
                         foreach ($templates as $template) {
-                            $templateTVObject = $this->modx->getObject(modTemplateVarTemplate::class, ['templateid:=' => $template->id]);
+                            $templateTVObject = $this->modx->getObject(modTemplateVarTemplate::class, [
+                                'templateid:=' => $template->id,
+                                'AND:tmplvarid:=' => $obj->id
+                            ]);
                             if (!$templateTVObject) {
                                 $templateTVObject = $this->modx->newObject(modTemplateVarTemplate::class);
                             }
